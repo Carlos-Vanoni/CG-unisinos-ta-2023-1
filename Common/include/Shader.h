@@ -20,6 +20,7 @@ class Shader
 {
 public:
 	GLuint ID;
+	GLint positionLoc;
 	// Constructor generates the shader on the fly
 	Shader(const GLchar* vertexPath, const GLchar* fragmentPath)
 	{
@@ -94,6 +95,7 @@ public:
 		// Delete the shaders as they're linked into our program now and no longer necessery
 		glDeleteShader(vertex);
 		glDeleteShader(fragment);
+		positionLoc = glGetAttribLocation(ID, "position");
 
 	}
 	// Uses the current shader
@@ -130,6 +132,10 @@ public:
 	void setMat4(const std::string& name, float *v) const
 	{
 		glUniformMatrix4fv(glGetUniformLocation(this->ID, name.c_str()), 1, GL_FALSE, v);
+	}
+	GLint getPositionLoc() const
+	{
+		return positionLoc;
 	}
 };
 
